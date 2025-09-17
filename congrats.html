@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Поздравление 💖</title>
+  <style>
+    body {
+      text-align: center;
+      padding: 30px;
+      background: linear-gradient(135deg,#ffe6f2,#fff0f5);
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      min-height: 100vh;
+    }
+    h1 { 
+      color:#ff5e7e; 
+    }
+    p {
+      font-size: 1.2em;
+    }
+    video {
+      margin-top:20px;
+      width:280px;
+      height:280px;
+      border-radius:50%;
+      object-fit:cover;
+      box-shadow:0 8px 20px rgba(0,0,0,0.3);
+      display: none; /* скрыто, пока не появится после шариков */
+      cursor: pointer;
+    }
+
+    /* Кнопка приглашения */
+    #inviteBtn {
+      display: none;
+      margin-top: 30px;
+      padding: 15px 30px;
+      font-size: 1.3em;
+      background: #ff5e7e;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s, background 0.3s, opacity 0.5s;
+      opacity: 0;
+    }
+    #inviteBtn.show {
+      display: inline-block;
+      opacity: 1;
+      animation: slideUp 1s ease forwards;
+    }
+    #inviteBtn:hover {
+      background: #ff2e5e;
+      transform: scale(1.1);
+    }
+
+    /* Шарики */
+    .balloon {
+      position: fixed;
+      bottom: -120px;
+      width: 60px;
+      height: 80px;
+      border-radius: 50%;
+      opacity: 0.9;
+      animation: floatUp 6s linear forwards;
+      z-index: 10;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+    }
+
+    /* Анимация кнопки */
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Поздравляю тебя, моя любовь! 🎉</h1>
+  <p>Ты прошла весь квест, и вот твой сюрприз 💌</p>
+
+  <!-- Видеокружок -->
+  <video id="circleVideo" src="video.mp4" autoplay muted playsinline></video>
+
+  <!-- Кнопка приглашения -->
+  <button id="inviteBtn">💌 У меня есть для тебя приглашение...</button>
+
+  <script>
+    const v = document.getElementById("circleVideo");
+    const btn = document.getElementById("inviteBtn");
+
+    // запуск шариков
+    function launchBalloons() {
+      for (let i = 0; i < 15; i++) {
+        let balloon = document.createElement("div");
+        balloon.className = "balloon";
+        balloon.style.left = Math.random() * 90 + "vw"; 
+        balloon.style.background = `radial-gradient(circle at 50% 35%, hsl(${Math.random()*360},80%,75%), hsl(${Math.random()*360},90%,55%))`;
+        balloon.style.animationDuration = (Math.random()*3+4) + "s"; 
+        document.body.appendChild(balloon);
+
+        setTimeout(() => balloon.remove(), 7000);
+      }
+    }
+
+    // при загрузке запускаем шарики, потом показываем видео
+    window.onload = () => {
+      launchBalloons();
+      setTimeout(() => {
+        v.style.display = "inline";
+        v.play().catch(()=>{});
+      }, 3500);
+    };
+
+    // включаем звук по клику
+    document.body.addEventListener("click", () => {
+      v.muted = false;
+      v.play().catch(()=>{});
+    }, { once: true });
+
+    // после окончания видео показываем кнопку
+    v.addEventListener("ended", () => {
+      btn.classList.add("show");
+    });
+
+    // если нажать на видео снова — пересмотр
+    v.addEventListener("click", () => {
+      v.currentTime = 0;
+      v.play();
+    });
+
+    // клик по кнопке → переход на страницу места
+    btn.addEventListener("click", () => {
+      window.location.href = "place.html"; // тут твоя страница с местом свидания
+    });
+  </script>
+</body>
+</html>

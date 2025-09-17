@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Quest 💖</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Экран приветствия -->
+  <section id="screen0" class="screen active">
+    <h1>Привет, моя любимая! 🌸</h1>
+    <p>У меня есть для тебя маленький квест-сюрприз. Готова? 💌</p>
+    <button onclick="nextScreen(1)">Начать квест 🚀</button>
+  </section>
+
+  <!-- Вопросы с фото -->
+  <section id="screen1" class="screen">
+    <img src="photo1.jpg" class="question-photo">
+    <h2>Вопрос 1</h2>
+    <p>В какой день мы встретились впервые?</p>
+    <input id="answer1" type="text" placeholder="Введите дату">
+    <button onclick="checkAnswer(0)">Проверить ✅</button>
+    <p id="feedback0" class="feedback"></p>
+  </section>
+
+  <section id="screen2" class="screen">
+    <img src="photo2.jpg" class="question-photo">
+    <h2>Вопрос 2</h2>
+    <p>Где мы повесили наш замочек?</p>
+    <input id="answer2" type="text" placeholder="Введите место">
+    <button onclick="checkAnswer(1)">Проверить ✅</button>
+    <p id="feedback1" class="feedback"></p>
+  </section>
+
+  <section id="screen3" class="screen">
+    <img src="photo3.jpg" class="question-photo">
+    <h2>Вопрос 3</h2>
+    <p>Какая моя фамилия?</p>
+    <input id="answer3" type="text" placeholder="Введите фамилию">
+    <button onclick="checkAnswer(2)">Проверить ✅</button>
+    <p id="feedback2" class="feedback"></p>
+  </section>
+
+  <section id="screen4" class="screen">
+    <img src="photo4.jpg" class="question-photo">
+    <h2>Вопрос 4</h2>
+    <p>Как зовут нашего младшего?</p>
+    <input id="answer4" type="text" placeholder="Введите имя">
+    <button onclick="checkAnswer(3)">Проверить ✅</button>
+    <p id="feedback3" class="feedback"></p>
+  </section>
+
+  <!-- Финальный экран -->
+  <section id="screen5" class="screen">
+    <h1>🎉 Поздравляю! 🎉</h1>
+    <p>Ты прошла квест! 🌸 Пусть каждый день будет таким же радостным и светлым ✨</p>
+    <div class="final-photos">
+      <img src="photo1.jpg" class="round-photo">
+      <img src="photo2.jpg" class="round-photo">
+      <img src="photo3.jpg" class="round-photo">
+      <img src="photo4.jpg" class="round-photo">
+    </div>
+    <button onclick="playSong()">Включить музыку 🎶</button>
+    <div id="confetti"></div>
+  </section>
+
+  <!-- Музыка для финального экрана -->
+  <audio id="song" src="happy.mp3"></audio>
+
+  <!-- Фоновая музыка -->
+  <audio id="bgMusic" src="tenderness.mp3" autoplay loop muted></audio>
+
+  <script src="script.js"></script>
+
+  <script>
+    const music = document.getElementById("bgMusic");
+
+    // включаем музыку и снимаем mute после первого клика
+    document.body.addEventListener("click", () => {
+      music.muted = false;  // включаем звук
+      music.play().catch((e) => {
+        console.log("Ошибка воспроизведения:", e);
+      });
+    }, { once: true });
+  </script>
+</body>
+</html>

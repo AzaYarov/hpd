@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Наше свидание 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* Toolbar */
+    .toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 94, 126, 0.9);
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .toolbar h2 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+    .toolbar button {
+      background: #fff;
+      color: #ff5e7e;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    .toolbar button:hover {
+      background: #ffe0ea;
+    }
+
+    header {
+      padding: 80px 20px 20px; /* отступ сверху под тулбар */
+      font-size: 2em;
+      font-weight: bold;
+      animation: fadeIn 2s ease;
+    }
+
+    .place-photo {
+      width: 90%;
+      max-width: 500px;
+      border-radius: 20px;
+      margin: 20px auto;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      animation: zoomIn 2s ease;
+    }
+
+    .details {
+      margin: 20px;
+      font-size: 1.2em;
+      line-height: 1.5;
+      animation: slideUp 2s ease;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 30px;
+      padding: 15px 30px;
+      background: #ff5e7e;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s, background 0.3s;
+    }
+    .btn:hover {
+      background: #ff2e5e;
+      transform: scale(1.1);
+    }
+
+    /* Слайд-шоу */
+    #memoryGallery {
+      display: none;
+      margin-top: 80px;
+    }
+    #memoryGallery img {
+      width: 300px;
+      height: 300px;
+      object-fit: cover; /* чтобы фото не растягивались */
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    #memoryGallery img.show {
+      opacity: 1;
+    }
+
+    /* Плавающие сердечки */
+    .heart {
+      position: fixed;
+      bottom: -50px;
+      color: #ff5e7e;
+      font-size: 24px;
+      opacity: 0.7;
+      animation: floatUp 6s linear forwards;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes zoomIn {
+      from {transform: scale(0.8); opacity: 0;}
+      to {transform: scale(1); opacity: 1;}
+    }
+    @keyframes slideUp {
+      from {transform: translateY(50px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <h2>🌸 Наше свидание</h2>
+    <button onclick="unlockMemories()">🔓 Разблокировать воспоминания</button>
+  </div>
+
+  <!-- Слайд-шоу с фото -->
+  <div id="memoryGallery">
+    <img id="memoryPhoto" src="photo1.jpg" alt="Воспоминание" class="show">
+  </div>
+
+  <header>💞 Наше свидание 💞</header>
+
+  <img src="date_place.jpg" alt="Место свидания" class="place-photo">
+
+  <div class="details">
+    <p>Моя любимая 💖, я приглашаю тебя на особенное свидание...</p>
+    <p><b>📍 Место:</b>Maui</p>
+    <p><b>🕒 Время:</b> 22:30, в четверг</p>
+    <p>Хочу провести этот вечер только с тобой, наслаждаясь каждым моментом ✨</p>
+  </div>
+
+  <button class="btn" onclick="openMap()">Открыть карту 📍</button>
+
+  <script>
+    function openMap() {
+      window.open("https://2gis.kz/almaty/geo/70000001035432714", "_blank");
+    }
+
+    // Сердечки
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 20 + "px";
+      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 7000);
+    }
+    setInterval(createHeart, 700);
+
+    // Слайд-шоу
+    const photos = [
+      "photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg",
+      "photo6.jpg","photo7.jpg","photo8.jpg","photo9.png",
+      "photo11.jpg","photo12.jpg","photo13.jpg","photo14.jpg","photo15.jpg",
+      "photo16.jpg","photo17.jpg","photo18.jpg","photo19.jpg","photo20.jpg",
+      "photo21.jpg","photo22.jpg","photo23.jpg","photo24.jpg","photo25.jpg",
+      "photo26.jpg","photo27.jpg","photo28.jpg","photo29.jpg"
+    ];
+
+    let current = 0;
+    let slideInterval;
+
+    function unlockMemories() {
+      const gallery = document.getElementById("memoryGallery");
+      const img = document.getElementById("memoryPhoto");
+      gallery.style.display = "block";
+
+      img.src = photos[current];
+      img.classList.add("show");
+
+      clearInterval(slideInterval);
+      slideInterval = setInterval(() => {
+        img.classList.remove("show");
+        setTimeout(() => {
+          current = (current + 1) % photos.length;
+          img.src = photos[current];
+          img.classList.add("show");
+        }, 500);
+      }, 1500); // каждые 3 секунды
+    }
+  </script>
+
+  <audio id="bgMusic" src="paradise.mp3" autoplay loop muted></audio>
+
+  <script>
+    const music = document.getElementById("bgMusic");
+    document.body.addEventListener("click", () => {
+      music.muted = false;
+      music.play().catch(()=>{});
+    }, { once: true });
+  </script>
+
+</body>
+</html>
